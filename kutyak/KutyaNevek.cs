@@ -14,7 +14,7 @@ namespace kutyak
 
         public KutyaNevek(string CSVsor) 
         {
-            var mezo = CSVsor.Split(" ");
+            var mezo = CSVsor.Split(";");
             this.id = int.Parse(mezo[0]);
             this.kutyanev = mezo[1];
         }
