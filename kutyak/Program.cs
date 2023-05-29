@@ -10,23 +10,14 @@ File.ReadAllLines("Kutyak.csv").Skip(1).ToList().ForEach(x => kutyak.Add(new Kut
 
 Console.WriteLine($"3. feladat: Kutyanevek száma: {kutyaNevek.Count}");
 Console.WriteLine($"6. feladat: Kutyák átlag életkora: {Math.Round(kutyak.Average(x => x.Eletkor),2)}");
-int legidosebb = kutyak.Max(x => x.Eletkor);
-int nevId=0;
-foreach (var item in kutyak)
-{
-    if (item.Eletkor == kutyak.Max(x => x.Eletkor)){
-        nevId = item.NevId;
-        break;
-    }
-}
-string nev = "";
-foreach (var item in kutyaNevek)
-{
-    if (item.Id==nevId)
-    {
-        nev=item.Kutyanev; 
-        break;
-    }
-}
+Kutyak legidosebb = kutyak.Find(x => x.Eletkor == kutyak.Max(x => x.Eletkor));
+KutyaNevek neve = kutyaNevek.Find(x => x.Id == legidosebb.NevId);
+KutyaFajtak fajta = kutyaFajtak.Find(x => x.Id == legidosebb.FajtaId);
+Console.WriteLine($"7. feladat: Legidősebb kutya neve és fajtája: {neve.Kutyanev}, {fajta.Nev}");
+KutyaFajtak masodik;
+Console.WriteLine("8.feladat: Január 10.-én vizsgált kutya fajták:");
+kutyak.Where(x => x.Orvos == "2018.01.10").GroupBy(x => x.FajtaId).ToList().ForEach(x => Console.WriteLine($"{masodik = kutyaFajtak.Find(y => y.Id == x.Key)} ;{masodik.Nev}; {x.Count()}"));
 
-Console.WriteLine($"7. feladat: Legidősebb kutya neve és fajtája: {nev}+");
+
+
+
